@@ -52,7 +52,7 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/apartmentindex"
-            render={() => <ApartmentIndex apartments={this.state.apartments} />} />
+            render={() => <ApartmentIndex user_id={this.props.current_user.id} logged_in={this.props.logged_in} apartments={this.state.apartments} />} />
             <Route
               path="/apartmentnew"
               render={() => <ApartmentNew createApartment={this.createApartment} />} />
