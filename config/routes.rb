@@ -7,6 +7,7 @@
     resources :apartments
   devise_for :users
   get '*path', to: 'home#index', constraints: ->(request){ request.format.html? }
+  post '/newapartments/:id' => 'apartments#add_apartment'
   root 'home#index'
 end
 

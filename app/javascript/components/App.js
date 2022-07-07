@@ -32,6 +32,19 @@ class App extends Component {
     .catch(errors => console.log("Apartment read errors:", errors))
   }
 
+  createApartment = (apartment) => {
+    fetch(`/newapartments/${this.props.current_user.id}`, {
+    body: JSON.stringify(apartment),
+    headers: {
+      "Content-Type": "application/json"
+    },
+    method: "POST"
+    })
+    .then(response => response.json())
+    .then(() => this.readApartments())
+    .catch(errors => console.log("Apartment create errors:", errors))
+  }
+
   render() {
     return (
         <Router>
@@ -39,12 +52,24 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/apartmentindex"
-            render={() => <ApartmentIndex apartments={this.state.apartments} />} />
-            <Route path="/apartmentshow" component={ApartmentShow} />
-            <Route path="/apartmentnew" component={ApartmentNew} />
+            render={() => <ApartmentIndex user_id={this.props.current_user.id} logged_in={this.props.logged_in} apartments={this.state.apartments} />} />
+            <Route
+            path="/apartmentnew"
+            render={() => <ApartmentNew createApartment={this.createApartment} />} 
+            />
+
+            <Route path="/apartmentshow/:id" 
+            render={(props) => {
+            let id = props.match.params.id
+            let apartment = this.state.apartments.find(apartmentObject => apartmentObject.id == id)
+            return <ApartmentShow apartment={apartment}/>
+            }}
+            
+            return  />
             <Route path="/apartmentedit" component={ApartmentEdit} />
             <Route component={NotFound}/>
           </Switch>
+          <Footer />
         </Router>
     )
   }

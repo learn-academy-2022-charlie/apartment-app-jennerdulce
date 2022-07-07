@@ -16,7 +16,7 @@ import { Card } from 'reactstrap';
 Enzyme.configure({ adapter: new Adapter() })
 
 describe("When ApartmentIndex renders", () => {
-  it("displays a heading", () => {
+  it("displays a Card", () => {
     let props = {
       apartments:[
         {
@@ -39,5 +39,30 @@ describe("When ApartmentIndex renders", () => {
     const apartmentIndexRender = shallow(<ApartmentIndex {...props}/>)
     const apartmentIndexCard = apartmentIndexRender.find("Card")
     expect(apartmentIndexCard.length).toEqual(1)
+  })
+
+  it("displays renders headers", () => {
+    let props = {
+      apartments:[
+        {
+          name: 'Apartment Name',
+          street: '800 E Lexington Ave',
+          city: 'El Cajon',
+          zipcode: '92019',
+          state: 'California',
+          manager: 'Freddy Burger',
+          email: 'freddy@lexingtonpark.com',
+          price: '$2,090',
+          bedrooms: 2,
+          bathrooms: 2,
+          pets: 'yes',
+          image: 'https://images1.apartments.com/i2/ZNNLRXth5Ar5s3kTKbWzZC-Zdx4lWaOrDrS18n-OLLc/110/lexington-park-el-cajon-ca-primary-photo.jpg?p=1',
+          user_id: 1
+         }
+          ]
+       }
+    const apartmentIndexRender = shallow(<ApartmentIndex {...props}/>)
+    const apartmentHeader = apartmentIndexRender.find("h1")
+    expect(apartmentHeader.length).toEqual(2)
   })
 })
