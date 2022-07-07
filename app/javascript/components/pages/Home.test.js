@@ -14,10 +14,12 @@ import Home from './Home'
 Enzyme.configure({ adapter: new Adapter() })
 
 describe("When Home renders", () => {
+  let homeRender
+    beforeEach(() => {
+        homeRender = shallow(<Home />)
+    })
   it("displays a heading", () => {
-    const home = shallow(<Home />)
-    const homeHeading = home.find("h3")
-    console.log("HOME", homeHeading.debug());
-    expect(homeHeading.text()).toEqual("This Should Fail")
+    const homeHeading = homeRender.find("h3")
+    expect(homeHeading.text()).toEqual("Home")
   })
 })
