@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Nav, NavItem } from 'reactstrap'
 import { Collapse, Navbar, NavbarToggler, NavbarBrand} from 'reactstrap';
-import { NavLink } from 'react-router-dom'
 
 class Header extends Component {
   constructor(props) {
@@ -39,10 +38,10 @@ class Header extends Component {
           <Collapse isOpen={!this.state.collapsed} navbar>
             <Nav navbar>
               <NavItem>
-                <a href="/">Home</a>
+                <a href="/" className="nav-link">Home</a>
               </NavItem>
               <NavItem>
-                <a href="/apartmentindex">All Apartments</a>
+                <a href="/apartmentindex" className="nav-link">All Apartments</a>
               </NavItem>
               { logged_in &&
               <NavItem>

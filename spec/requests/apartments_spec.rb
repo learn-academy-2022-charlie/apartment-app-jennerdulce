@@ -378,6 +378,49 @@ RSpec.describe "Apartments", type: :request do
       expect(response).to have_http_status(422)
       expect(apartment['image']).to include "can't be blank"
     end
+
+    describe "Get /apartmentshow/:id" do
+    it "shows a singular apartment retrieved by id" do
+      user = User.where(email: 'test@example.com').first_or_create(password: '12345678', password_confirmation: '12345678')
+
+      apartment_params = {
+        apartment: {
+          name: 'Apartment Name',
+          street: '800 E Lexington Ave',
+          city: 'El Cajon',
+          zipcode: '92019',
+          state: 'California',
+          manager: 'Freddy Burger',
+          email: 'freddy@lexingtonpark.com',
+          price: '$2,090',
+          bedrooms: 2,
+          bathrooms: 2,
+          pets: 'yes',
+          image: 'https://images1.apartments.com/i2/ZNNLRXth5Ar5s3kTKbWzZC-Zdx4lWaOrDrS18n-OLLc/110/lexington-park-el-cajon-ca-primary-photo.jpg?p=1'
+        }
+      }
+      post `/newapartments/#{user.id}`, params: apartment_params
+
+      apartment = Apartment.first
+      apartment_id = apartment.id
+      get "/apartmentshow/#{apartment_id}"
+
+      show_apartment = Apartment.first
+      expect(response).to have_http_status(200)
+      expect(show_apartment.name).to eq 'Apartment Name'
+      expect(show_apartment.street).to eq '800 E Lexington Ave'
+      expect(show_apartment.city).to eq 'El Cajon'
+      expect(show_apartment.zipcode).to eq '92019'
+      expect(show_apartment.state).to eq 'California'
+      expect(show_apartment.manager).to eq 'Freddy Burger'
+      expect(show_apartment.email).to eq 'freddy@lexingtonpark.com'
+      expect(show_apartment.price).to eq '$2,090'
+      expect(show_apartment.bathrooms).to eq 2
+      expect(show_apartment.bedrooms).to eq 2
+      expect(show_apartment.pets).to eq 'yes'
+      expect(show_apartment.image).to eq 'https://images1.apartments.com/i2/ZNNLRXth5Ar5s3kTKbWzZC-Zdx4lWaOrDrS18n-OLLc/110/lexington-park-el-cajon-ca-primary-photo.jpg?p=1'
+    end   
+  end
     
   end
 end
