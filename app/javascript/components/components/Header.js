@@ -1,9 +1,26 @@
 import React, { Component } from 'react'
 import { Nav, NavItem } from 'reactstrap'
+import { Collapse, Navbar, NavbarToggler, NavbarBrand} from 'reactstrap';
 import { NavLink } from 'react-router-dom'
 
 class Header extends Component {
+  constructor(props) {
+    super(props);
+
+    this.toggleNavbar = this.toggleNavbar.bind(this);
+    this.state = {
+      collapsed: true
+    };
+  }
+
+  toggleNavbar() {
+    this.setState({
+      collapsed: !this.state.collapsed
+    });
+  }
+
   render() {
+
     const {
       logged_in,
       current_user,
@@ -13,9 +30,30 @@ class Header extends Component {
     } = this.props
     console.log("logged_in:", logged_in)
     console.log("current_user:", current_user)
+
     return (
       <>
-        <h1>React in Rails with Devise</h1>
+       <Navbar color="faded" light>
+          <NavbarBrand href="/" className="mr-auto">reactstrap</NavbarBrand>
+          <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
+          <Collapse isOpen={!this.state.collapsed} navbar>
+            <Nav navbar>
+              <NavItem>
+                <NavLink to="/">Home</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink to="/apartmentindex">All Apartments</NavLink>
+              </NavItem>
+              { current_user &&
+              <NavItem>
+                <NavLink to="/apartmentnew">Add New Apartment</NavLink>
+              </NavItem>
+              }
+              
+            </Nav>
+          </Collapse>
+        </Navbar>
+        {/* <h1>React in Rails with Devise</h1>
         <Nav>
           {logged_in &&
             <NavItem>
@@ -38,7 +76,7 @@ class Header extends Component {
         </NavLink>
         <NavLink className="header-link" to="/">
             Home
-        </NavLink>
+        </NavLink> */}
       </>
     )
   }

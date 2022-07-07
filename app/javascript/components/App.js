@@ -32,6 +32,19 @@ class App extends Component {
     .catch(errors => console.log("Apartment read errors:", errors))
   }
 
+  createApartment = (apartment) => {
+    fetch(`/newapartments/${this.props.current_user.id}`, {
+    body: JSON.stringify(apartment),
+    headers: {
+      "Content-Type": "application/json"
+    },
+    method: "POST"
+    })
+    .then(response => response.json())
+    .then(() => this.readApartments())
+    .catch(errors => console.log("Apartment create errors:", errors))
+  }
+
   render() {
     return (
         <Router>
@@ -40,11 +53,14 @@ class App extends Component {
             <Route exact path="/" component={Home} />
             <Route path="/apartmentindex"
             render={() => <ApartmentIndex apartments={this.state.apartments} />} />
+            <Route
+              path="/apartmentnew"
+              render={() => <ApartmentNew createApartment={this.createApartment} />} />
             <Route path="/apartmentshow" component={ApartmentShow} />
-            <Route path="/apartmentnew" component={ApartmentNew} />
             <Route path="/apartmentedit" component={ApartmentEdit} />
             <Route component={NotFound}/>
           </Switch>
+          <Footer />
         </Router>
     )
   }

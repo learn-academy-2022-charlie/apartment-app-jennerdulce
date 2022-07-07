@@ -14,9 +14,60 @@ import ApartmentNew from './ApartmentNew'
 Enzyme.configure({ adapter: new Adapter() })
 
 describe("When ApartmentNew renders", () => {
-  it("displays a heading", () => {
-    const apartmentNew = shallow(<ApartmentNew />)
-    const apartmentNewHeading = apartmentNew.find("h3")
-    expect(apartmentNewHeading.text()).toEqual("This Should Fail")
+  let apartmentNewRender
+  beforeEach(() => {
+      apartmentNewRender = shallow(<ApartmentNew />)
+  })
+  it("displays a form to create a apartment", () => {
+      const apartmentNewFormRender = apartmentNewRender.find("Form")
+      expect(apartmentNewFormRender.length).toEqual(1)
+  })
+  it("displays an input for the apartments name", () => {
+      const apartmentNewNameInputRender = apartmentNewRender.find('[name="name"]')
+      expect(apartmentNewNameInputRender.length).toEqual(1)
+  })
+  it("displays an input for the apartments street", () => {
+      const apartmentNewAgeInputRender = apartmentNewRender.find('[name="street"]')
+      expect(apartmentNewAgeInputRender.length).toEqual(1)
+  })
+  it("displays an input for the apartments city", () => {
+      const apartmentNewCityInputRender = apartmentNewRender.find('[name="city"]')
+      expect(apartmentNewCityInputRender.length).toEqual(1)
+  })
+  it("displays an input for the apartments zipcode", () => {
+      const apartmentNewZipcodeInputRender = apartmentNewRender.find('[name="zipcode"]')
+      expect(apartmentNewZipcodeInputRender.length).toEqual(1)
+  })
+  it("displays an input for the apartments state", () => {
+      const apartmentNewStateInputRender = apartmentNewRender.find('[name="state"]')
+      expect(apartmentNewStateInputRender.length).toEqual(1)
+  })
+  it("displays an input for the apartments manager", () => {
+      const apartmentNewManagerInputRender = apartmentNewRender.find('[name="manager"]')
+      expect(apartmentNewManagerInputRender.length).toEqual(1)
+  })
+  it("displays an input for the apartments manager's email", () => {
+      const apartmentNewEmailInputRender = apartmentNewRender.find('[name="email"]')
+      expect(apartmentNewEmailInputRender.length).toEqual(1)
+  })
+  it("displays an input for the apartments price", () => {
+    const apartmentNewPriceInputRender = apartmentNewRender.find('[name="price"]')
+    expect(apartmentNewPriceInputRender.length).toEqual(1)
+  })
+  it("displays an input for the apartments bedrooms", () => {
+      const apartmentNewBedroomsInputRender = apartmentNewRender.find('[name="bedrooms"]')
+      expect(apartmentNewBedroomsInputRender.length).toEqual(1)
+  })
+  it("displays an input for the apartments bathrooms", () => {
+      const apartmentNewBathroomsInputRender = apartmentNewRender.find('[name="bathrooms"]')
+      expect(apartmentNewBathroomsInputRender.length).toEqual(1)
+  })
+  it("displays an input for the apartments pets", () => {
+    const apartmentNewPetsInputRender = apartmentNewRender.find('[name="pets"]')
+    expect(apartmentNewPetsInputRender.length).toEqual(1)
+  })
+  it("displays an input for the apartments image", () => {
+    const apartmentNewImageInputRender = apartmentNewRender.find('[name="image"]')
+    expect(apartmentNewImageInputRender.length).toEqual(1)
   })
 })

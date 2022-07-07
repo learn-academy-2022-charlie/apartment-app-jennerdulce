@@ -9,14 +9,24 @@ class ApartmentsController < ApplicationController
         render json: apartment
     end
 
-    def create
-        apartment = Apartment.create(apartment_params)
-        if apartment.valid?
-            render json: apartment
+    def add_apartment
+        user = User.find(params[:id])
+        user.apartments.create(apartment_params)
+        if user.valid?
+            render json: user
         else
-            render json: apartment.errors, status: 422
+            render json: user.errors, status: 422
         end
     end
+
+    # def create
+    #     apartment = Apartment.create(apartment_params)
+    #     if apartment.valid?
+    #         render json: apartment
+    #     else
+    #         render json: apartment.errors, status: 422
+    #     end
+    # end
 
     def update
         apartment = Apartment.find(params[:id])
@@ -37,6 +47,6 @@ class ApartmentsController < ApplicationController
     private
     # Strong parameter
     def apartment_params
-        params.require(:apartment).permit(:street, :city, :state, :manager, :email, :price, :bedrooms, :bathrooms, :pets, :image)
+        params.require(:apartment).permit(:name, :zipcode, :street, :city, :state, :manager, :email, :price, :bedrooms, :bathrooms, :pets, :image)
     end
 end
